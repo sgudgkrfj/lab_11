@@ -6,3 +6,9 @@ print(response.read())
 import requests
 response = requests.get('https://coinmarketcap.com/')
 print(response.text)
+response_pars = response.text.split('span>')
+
+
+for elem in response_pars:
+    if elem.startswith("$"):
+        print(elem)
