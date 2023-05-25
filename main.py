@@ -1,14 +1,22 @@
-
-import urllib.request
+"""import urllib.request
 opener = urllib.request.build_opener()
 response = opener.open("https://httpbin.org/get")
-print(response.read())
-import requests
+print(response.read())"""
+
+import  requests
 response = requests.get('https://coinmarketcap.com/')
-print(response.text)
-response_pars = response.text.split('span>')
+
+from bs4 import BeautifulSoup
+if response.status_code == 200:
+    soup = BeautifulSoup(response.content, "html.parser")
+    title = soup.find("title").text
+    print(title)
+else:
+    print("Немає підключення ", response.status_code)
 
 
-for elem in response_pars:
-    if elem.startswith("$"):
-        print(elem)
+
+
+
+
+
