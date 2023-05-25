@@ -1,14 +1,11 @@
 
-import urllib.request
-opener = urllib.request.build_opener()
-response = opener.open("https://httpbin.org/get")
-print(response.read())
 import requests
-response = requests.get('https://coinmarketcap.com/')
-print(response.text)
-response_pars = response.text.split('span>')
+from bs4 import BeautifulSoup
+response = requests.get('https://uk.wikipedia.org/')
 
 
-for elem in response_pars:
-    if elem.startswith("$"):
-        print(elem)
+if response.status_code == 200:
+    soup=BeautifulSoup(response.content, "html.parser")
+    img = soup.find_all("img")
+    for i in img:
+        print("https://"+i["src"])
